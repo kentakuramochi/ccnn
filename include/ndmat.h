@@ -32,6 +32,13 @@ typedef struct {
     float*  data;           ///< data
 } ndmat;
 
+///
+/// @fn     create_ndmat
+/// @brief  create ndmat with specified dimension
+/// @param[in]  dim matrix dimension (0 < dim <= 32)
+/// @param[in]  ... each dimesion size
+/// @return     pointer to ndmat
+///
 ndmat* create_ndmat(const int dim, ...)
 {
     if ((dim <= 0) || (dim >= MAX_DIM))  {
@@ -100,21 +107,35 @@ ndmat* create_ndmat(const int dim, ...)
     return mat;
 }
 
-bool set_fromarray(ndmat* mat, const float* array, const int size)
+///
+/// @fn     set_fromarray
+/// @brief  set ndmat data from specified array
+/// @param[out] mat     ndmat
+/// @param[in]  array   data source array
+/// @param[in]  elem    number of elements
+/// @retval     true    succeeded
+/// @retval     false   failed
+///
+bool set_fromarray(ndmat* mat, const float* array, const int elem)
 {
     if ((mat == NULL) || (array == NULL)) {
         return false;
     }
 
-    if (size != mat->elem) {
+    if (elem != mat->elem) {
         return false;
     }
 
-    memcpy(mat->data, array, (sizeof(float) * size));
+    memcpy(mat->data, array, (sizeof(float) * elem));
 
     return true;
 }
 
+///
+/// @fn     delete_ndmat
+/// @brief  delete ndmat
+/// @param[out] mat     ndmat data
+///
 void delete_ndmat(ndmat *mat)
 {
     if (mat == NULL) {
