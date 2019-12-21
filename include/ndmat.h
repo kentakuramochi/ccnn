@@ -12,7 +12,7 @@
 #include <stdarg.h>
 
 ///
-/// @struct MAX_DIM
+/// @def    MAX_DIM
 /// @brief  maximum dimension of ndmat
 ///
 #define MAX_DIM 32
