@@ -132,6 +132,23 @@ bool set_fromarray(ndmat* mat, const float* array, const int elem)
 }
 
 ///
+/// @fn     fill_ndmat
+/// @brief  fill ndmat data with specified value
+/// @param[out] mat     ndmat
+/// @param[in]  value   filling value
+///
+void fill_ndmat(ndmat* mat, const float value)
+{
+    if (mat == NULL) {
+        return;
+    }
+
+    for (int i = 0; i < mat->elem; i++) {
+        mat->data[i] = value;
+    }
+}
+
+///
 /// @fn     delete_ndmat
 /// @brief  delete ndmat
 /// @param[out] mat     ndmat data
