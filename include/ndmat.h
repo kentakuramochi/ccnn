@@ -15,11 +15,12 @@
 /// @def    MAX_DIM
 /// @brief  maximum dimension of ndmat
 ///
-#define MAX_DIM 32
+#define MAX_DIM 4
 
 ///
 /// @struct ndmat
 /// @brief  data structure for network
+/// @note   row-major, NCHW format
 ///
 typedef struct {
     int     shape[MAX_DIM]; ///< data shape
