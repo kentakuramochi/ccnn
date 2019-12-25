@@ -45,20 +45,19 @@ typedef struct layer_tag {
     struct layer_tag* prev;
     struct layer_tag* next;
 
-    void*(forward)(void);
+    void*(forward)(struct layer_tag*);
 } layer;
 
 ///
 /// @fn     create_layer
-/// @brief  create basic layer
-/// @param[in]  type
-/// @return     pointer to layer
+/// @brief  create layer
+/// @return pointer to layer
 ///
-layer* create_layer(LAYER_TYPE type)
+layer* create_layer(void)
 {
     layer* l = (layer*)malloc(sizeof(layer));
 
-    l->type = type;
+    l->type = LAYER_NONE;
 
     l->in   = NULL;
     l->out  = NULL;
@@ -68,12 +67,32 @@ layer* create_layer(LAYER_TYPE type)
     l->prev = NULL;
     l->next = NULL;
 
+    l->forward = NULL;
+
     return l;
 }
 
 ///
+/// @fn     connect_layer
+/// @brief  connect layer
+/// @param[in]  prev    previous layer
+/// @param[in]  next    next layer
+///
+void connect_layer(layer* prev, layer* next)
+{
+    if ((prev == NULL) || (next == NULL)) {
+        return;
+    }
+
+    prev->next = next;
+    next->prev = prev;
+
+    next->in = create_ndmat(prev->out->dim, prev->out->n, prev->out->c, prev->out->h, prev->out->w);
+}
+
+///
 /// @fn     delete_layer
-/// @brief  delete basic layer
+/// @brief  delete layer
 /// @param[in]  layer   layer
 ///
 void delete_layer(layer* layer)
