@@ -8,20 +8,20 @@
 
 #include "layer.h"
 
-void forward_input(layer* l) {}
+void forward_input(layer* input) {}
 
 layer* input(const int n, const int c, const int h, const int w)
 {
-    layer* l_in = create_layer();
+    layer* input = create_layer();
 
-    l_in->type = LAYER_IN;
+    input->type = LAYER_IN;
 
-    l_in->in  = create_ndmat(4, n, c, h, w);
-    l_in->out = l_in->in;
+    input->in  = create_ndmat(4, n, c, h, w);
+    input->out = input->in;
 
-    l_in->forward = forward_input;
+    input->forward = forward_input;
 
-    return l_in;
+    return input;
 }
 
 #endif // INPUT_LAYER_H
