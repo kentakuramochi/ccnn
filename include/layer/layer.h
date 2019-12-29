@@ -24,8 +24,6 @@
 typedef enum {
     LAYER_NONE,
     LAYER_IN,       ///< input
-    LAYER_OUT,      ///< output
-    LAYER_IP,       ///< inner product
     LAYER_FC,       ///< fully convolution
 } LAYER_TYPE;
 
