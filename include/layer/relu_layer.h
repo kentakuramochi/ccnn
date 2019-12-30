@@ -15,17 +15,14 @@ void forward_relu(layer* relu)
     }
 }
 
-layer* relu(layer* prev, int out)
+layer* relu(layer* prev)
 {
     layer* relu = create_layer();
 
     relu->type = LAYER_RELU;
 
     relu->in  = create_ndmat(4, prev->out->n, prev->out->c, prev->out->h, prev->out->w);
-    relu->out = create_ndmat(4, prev->out->n, out, 1, 1);
-
-    relu->w = create_ndmat(4, prev->out->n, out, prev->out->h, prev->out->w);
-    relu->b = create_ndmat(4, prev->out->n, out, 1, 1);
+    relu->out = create_ndmat(4, prev->out->n, prev->out->c, prev->out->h, prev->out->w);
 
     relu->forward = forward_relu;
 
