@@ -25,6 +25,7 @@ typedef enum {
     LAYER_NONE,
     LAYER_IN,       ///< input
     LAYER_FC,       ///< fully convolution
+    LAYER_RELU      ///< ReLU
 } LAYER_TYPE;
 
 ///
