@@ -26,7 +26,8 @@ typedef enum {
     LAYER_IN,       ///< input
     LAYER_FC,       ///< fully convolution
     LAYER_RELU,     ///< ReLU
-    LAYER_SIGMOID   ///< sigmoid
+    LAYER_SIGMOID,  ///< sigmoid
+    LAYER_SOFTMAX   ///< softmax
 } LAYER_TYPE;
 
 ///
