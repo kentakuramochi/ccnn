@@ -10,6 +10,8 @@ CNN with C language
 
 ## Prerequesites
 
-- gcc/g++
-- GNU Make
-- Google Test v1.10.0
+- gcc/g++: compiler toolchain
+- GNU Make: build system
+- Unity: unit testing framework
+    - [github](https://github.com/ThrowTheSwitch/Unity)
+    - [documentation](https://www.throwtheswitch.org/unity)

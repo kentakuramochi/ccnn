@@ -1,42 +1,75 @@
-CC     := gcc
-CFLAGS := -Wall -Wextra -Wpedantic -Werror -std=c11
+# Makefile for test with Unity
+# reference: "Building with Unity with Make"
+# https://www.throwtheswitch.org/build/make
 
-# for GoogleTest
-CXX      := g++
-CXXFLAGS := -Wall -Wextra -Wpedantic -Werror -std=c++11
-LDFLAGS  := -L/usr/local/lib
-LIBS     := -lgtest -lgtest_main -lpthread
-
-INCLUDE := -I./include
-
-BUILD ?= release
-
-ifeq ($(BUILD), release)
-	CFLAGS   += -O0 -g
-else
-	CFLAGS   += -O2
-endif
-
+#SRCDIR := src
+INCDIR   := include
 TESTDIR  := test
-BUILDDIR := build
+UNITYDIR := unity/src
 
-TESTSRCS := $(wildcard $(TESTDIR)/*.cpp)
-TESTOBJS := $(addprefix $(BUILDDIR)/,$(TESTSRCS:.cpp=.o))
-TESTMAIN := $(BUILDDIR)/$(TESTDIR)/test_main
+BUILDDIR  := build
+DEPDIR    := build/depends
+OBJDIR    := build/objs
+RESDIR    := build/results
+BUILDDIRS := $(BUILDDIR) $(DEPDIR) $(OBJDIR) $(RESDIR)
 
-RM := rm -rf
+TESTSRCS := $(wildcard $(TESTDIR)/*.c)
+RESULTS  := $(patsubst $(TESTDIR)/test_%.c, $(RESDIR)/test_%.txt, $(TESTSRCS))
+
+.PRECIOUS: $(BUILDDIR)/test_%.out
+.PRECIOUS: $(DEPDIR)/%.d
+.PRECIOUS: $(OBJDIR)/%.o
+.PRECIOUS: $(RESDIR)/%.txt
+
+CC     := gcc
+CFLAGS := -Wall -Wextra -Wpedantic -Werror -std=c11 -I$(INCDIR) -I$(UNITYDIR) -DTEST
+
+COMPILE := $(CC) -c
+LINK    := $(CC)
+DEPEND  := $(CC) -MM -MG -MF
+
+RM    := rm -f
+MKDIR := mkdir -p
 
 .PHONY: test clean
 
-test: $(TESTMAIN)
-	@./$(TESTMAIN)
+test: $(BUILDDIRS) $(RESULTS)
+	@echo "$(RESULTS)"
+	@echo "----------\nIGNORES:\n----------"
+	@echo `grep -s IGNORE ${RESDIR}/*.txt`
+	@echo "----------\nFAILURES:\n----------"
+	@echo `grep -s FAIL ${RESDIR}/*.txt`
+	@echo "\nDONE"
 
-$(TESTMAIN): $(TESTOBJS)
-	$(CXX) $(CXXFLAGS) $(INCLUDE) $(LDFLAGS) $? $(LIBS) -o $@
+$(RESDIR)/%.txt: $(BUILDDIR)/%.out
+	./$< > $@ 2>&1
 
-$(BUILDDIR)/%.o: %.cpp
-	@mkdir -p ./$(BUILDDIR)/$(TESTDIR)
-	$(CXX) $(CXXFLAGS) $(INCLUDE) $(LDFLAGS) -c $< $(LIBS) -o $@
+$(BUILDDIR)/test_%.out: $(OBJDIR)/test_%.o $(OBJDIR)/unity.o
+	$(LINK) -o $@ $^
+
+$(OBJDIR)/%.o:: $(TESTDIR)/%.c
+	$(COMPILE) $(CFLAGS) $< -o $@
+
+$(OBJDIR)/%.o:: $(UNITYDIR)/%.c $(UNITYDIR)/%.h
+	$(COMPILE) $(CFLAGS) $< -o $@
+
+$(DEPDIR)/%.d:: $(TESTDIR)/%.c
+	$(DEPEND) $@ $<
+
+$(BUILDDIR):
+	$(MKDIR) $(BUILDDIR)
+
+$(DEPDIR):
+	$(MKDIR) $(DEPDIR)
+
+$(OBJDIR):
+	$(MKDIR) $(OBJDIR)
+
+$(RESDIR):
+	$(MKDIR) $(RESDIR)
 
 clean:
-	$(RM) $(BUILDDIR)
+	$(RM) $(OBJDIR)/*.o
+	$(RM) $(BUILDDIR)/*.out
+	$(RM) $(RESDIR)/*.txt
+
