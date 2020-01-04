@@ -46,7 +46,7 @@ typedef struct layer_tag {
     struct layer_tag* prev;
     struct layer_tag* next;
 
-    void*(forward)(struct layer_tag*);
+    void (*forward)(struct layer_tag*);
 } layer;
 
 ///

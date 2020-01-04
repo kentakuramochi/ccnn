@@ -23,6 +23,7 @@ void test_createbaselayer(void)
     TEST_ASSERT_NULL(l->b);
     TEST_ASSERT_NULL(l->prev);
     TEST_ASSERT_NULL(l->next);
+    TEST_ASSERT_NULL(l->forward);
 
     delete_layer(l);
 }
