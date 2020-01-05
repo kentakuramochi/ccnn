@@ -74,6 +74,42 @@ layer* create_layer(void)
 }
 
 ///
+/// @fn     set_input_shape
+/// @brief  set input data with shape
+/// @param[out] l   layer
+/// @param[in]  n   num of data
+/// @param[in]  c   num of data channel
+/// @param[in]  h   data height
+/// @param[in]  w   data width
+///
+void set_input_shape(layer* l, const int n, const int c, const int h, const int w)
+{
+    if (l->in != NULL) {
+        delete_ndmat(l->in);
+    }
+
+    l->in = create_ndmat(4, n, c, h, w);
+}
+
+///
+/// @fn     set_output_shape
+/// @brief  set output data with shape
+/// @param[out] l   layer
+/// @param[in]  n   num of data
+/// @param[in]  c   num of data channel
+/// @param[in]  h   data height
+/// @param[in]  w   data width
+///
+void set_output_shape(layer* l, const int n, const int c, const int h, const int w)
+{
+    if (l->out != NULL) {
+        delete_ndmat(l->out);
+    }
+
+    l->out = create_ndmat(4, n, c, h, w);
+}
+
+///
 /// @fn     connect_layer
 /// @brief  connect layer
 /// @param[in]  prev    previous layer
