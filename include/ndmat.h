@@ -42,7 +42,7 @@ typedef struct {
 ///
 ndmat* create_ndmat(const int dim, ...)
 {
-    if ((dim <= 0) || (dim >= MAX_DIM))  {
+    if ((dim <= 0) || (dim > MAX_DIM))  {
         return NULL;
     }
 
