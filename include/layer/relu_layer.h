@@ -21,8 +21,12 @@ layer* relu(layer* prev)
 
     relu->type = LAYER_RELU;
 
-    relu->in  = create_ndmat(4, prev->out->n, prev->out->c, prev->out->h, prev->out->w);
-    relu->out = create_ndmat(4, prev->out->n, prev->out->c, prev->out->h, prev->out->w);
+    if (prev != NULL) {
+        relu->in   = prev->out;
+        relu->prev = prev;
+
+        relu->out = create_ndmat(4, prev->out->n, prev->out->c, prev->out->h, prev->out->w);
+    }
 
     relu->forward = forward_relu;
 

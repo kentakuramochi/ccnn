@@ -23,8 +23,12 @@ layer* sigmoid(layer* prev)
 
     sigmoid->type = LAYER_SIGMOID;
 
-    sigmoid->in  = create_ndmat(4, prev->out->n, prev->out->c, prev->out->h, prev->out->w);
-    sigmoid->out = create_ndmat(4, prev->out->n, prev->out->c, prev->out->h, prev->out->w);
+    if (prev != NULL) {
+        sigmoid->in   = prev->out;
+        sigmoid->prev = prev;
+
+        sigmoid->out = create_ndmat(4, prev->out->n, prev->out->c, prev->out->h, prev->out->w);
+    }
 
     sigmoid->forward = forward_sigmoid;
 
