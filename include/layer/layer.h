@@ -60,10 +60,10 @@ layer* create_layer(void)
 
     l->type = LAYER_NONE;
 
-    l->in   = NULL;
-    l->out  = NULL;
-    l->w    = NULL;
-    l->b    = NULL;
+    l->in  = NULL;
+    l->out = NULL;
+    l->w   = NULL;
+    l->b   = NULL;
 
     l->prev = NULL;
     l->next = NULL;
@@ -124,7 +124,7 @@ void connect_layer(layer* prev, layer* next)
     prev->next = next;
     next->prev = prev;
 
-    next->in = create_ndmat(prev->out->dim, prev->out->n, prev->out->c, prev->out->h, prev->out->w);
+    next->in = prev->out;
 }
 
 ///
@@ -139,9 +139,13 @@ void delete_layer(layer* layer)
     }
 
     delete_ndmat(layer->in);
+    layer->in = NULL;
     delete_ndmat(layer->out);
+    layer->out = NULL;
     delete_ndmat(layer->w);
+    layer->w = NULL;
     delete_ndmat(layer->b);
+    layer->b = NULL;
 
     free(layer);
     layer = NULL;
