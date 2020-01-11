@@ -40,31 +40,10 @@ typedef struct {
 /// @param[in]  ... each dimesion size
 /// @return     pointer to ndmat
 ///
-ndmat* create_ndmat(const int dim, ...)
+ndmat* create_ndmat(const int n, const int c, const int h, const int w)
 {
-    if ((dim <= 0) || (dim > MAX_DIM))  {
+    if ((n <= 0) || (c <= 0) || (h <= 0) || (w <= 0)) {
         return NULL;
-    }
-
-    va_list ap;
-
-    va_start(ap, dim);
-
-    int shape[MAX_DIM];
-
-    for (int i = 0; i < dim; i++) {
-        int d = va_arg(ap, int);
-        shape[i] = d;
-    }
-
-    va_end(ap);
-
-    int elem = 1;
-    for (int i = 0; i < dim; i++) {
-        if (shape[i] < 0) {
-            return NULL;
-        }
-        elem *= shape[i];
     }
 
     ndmat* mat = (ndmat*)malloc(sizeof(ndmat));
@@ -72,8 +51,15 @@ ndmat* create_ndmat(const int dim, ...)
         return NULL;
     }
 
-    memcpy(mat->shape, shape, sizeof(int) * dim);
-    mat->dim  = dim;
+
+    mat->shape[0] = n;
+    mat->shape[1] = c;
+    mat->shape[2] = h;
+    mat->shape[3] = w;
+
+    mat->dim  = 4;
+
+    int elem = n * c * h * w;
     mat->elem = elem;
 
     mat->data = (float*)malloc(sizeof(float) * elem);
@@ -81,28 +67,6 @@ ndmat* create_ndmat(const int dim, ...)
         free(mat);
         mat = NULL;
         return NULL;
-    }
-
-    mat->n = 1;
-    mat->c = 1;
-    mat->h = 1;
-
-    mat->w = shape[dim - 1];
-    switch (dim) {
-        case 1:
-            break;
-        case 2:
-            mat->h = shape[dim - 2];
-            break;
-        case 3:
-            mat->c = shape[dim - 3];
-            mat->h = shape[dim - 2];
-            break;
-        default:
-            mat->n = shape[dim - 4];
-            mat->c = shape[dim - 3];
-            mat->h = shape[dim - 2];
-            break;
     }
 
     return mat;
