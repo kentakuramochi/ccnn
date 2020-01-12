@@ -13,13 +13,14 @@ void tearDown(void) {}
 
 void test_createvalidshape(void)
 {
-    ndmat* mat = create_ndmat(3, 3, 4, 4);
+    ndmat* mat = create_ndmat(1, 3, 4, 4);
 
-    TEST_ASSERT_EQUAL(3, mat->dim);
+    TEST_ASSERT_EQUAL(4, mat->dim);
     TEST_ASSERT_EQUAL((3 * 4 * 4), mat->elem);
-    TEST_ASSERT_EQUAL(3, mat->shape[0]);
-    TEST_ASSERT_EQUAL(4, mat->shape[1]);
+    TEST_ASSERT_EQUAL(1, mat->shape[0]);
+    TEST_ASSERT_EQUAL(3, mat->shape[1]);
     TEST_ASSERT_EQUAL(4, mat->shape[2]);
+    TEST_ASSERT_EQUAL(4, mat->shape[3]);
     TEST_ASSERT_EQUAL(1, mat->n);
     TEST_ASSERT_EQUAL(3, mat->c);
     TEST_ASSERT_EQUAL(4, mat->h);
@@ -30,7 +31,7 @@ void test_createvalidshape(void)
 
 void test_setvaliddata(void)
 {
-    ndmat* mat = create_ndmat(3, 3, 4, 4);
+    ndmat* mat = create_ndmat(1, 3, 4, 4);
 
     float array[] = {
         0, 0, 0, 0,
@@ -58,7 +59,7 @@ void test_setvaliddata(void)
 
 void test_fillmatrix(void)
 {
-    ndmat* mat = create_ndmat(3, 3, 4, 4);
+    ndmat* mat = create_ndmat(1, 3, 4, 4);
 
     fill_ndmat(mat, 1);
 

@@ -36,8 +36,10 @@ typedef struct {
 ///
 /// @fn     create_ndmat
 /// @brief  create ndmat with specified dimension
-/// @param[in]  dim matrix dimension (0 < dim <= 32)
-/// @param[in]  ... each dimesion size
+/// @param[in]  n   matrix number
+/// @param[in]  c   matrix channel
+/// @param[in]  h   matrix height
+/// @param[in]  w   matrix width
 /// @return     pointer to ndmat
 ///
 ndmat* create_ndmat(const int n, const int c, const int h, const int w)
@@ -51,11 +53,15 @@ ndmat* create_ndmat(const int n, const int c, const int h, const int w)
         return NULL;
     }
 
-
     mat->shape[0] = n;
     mat->shape[1] = c;
     mat->shape[2] = h;
     mat->shape[3] = w;
+
+    mat->n = n;
+    mat->c = c;
+    mat->h = h;
+    mat->w = w;
 
     mat->dim  = 4;
 
