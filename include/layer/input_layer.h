@@ -16,7 +16,7 @@ layer* input(const int n, const int c, const int h, const int w)
 
     input->type = LAYER_INPUT;
 
-    input->in  = create_ndmat(4, n, c, h, w);
+    input->in  = create_ndmat(n, c, h, w);
     input->out = input->in;
 
     input->forward = forward_input;

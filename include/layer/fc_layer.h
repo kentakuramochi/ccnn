@@ -35,10 +35,10 @@ layer* fc(layer* prev, int out)
         fc->in   = prev->out;
         fc->prev = prev;
 
-        fc->out = create_ndmat(4, prev->out->n, out, 1, 1);
+        fc->out = create_ndmat(prev->out->n, out, 1, 1);
 
-        fc->w = create_ndmat(4, prev->out->n, out, prev->out->h, prev->out->w);
-        fc->b = create_ndmat(4, prev->out->n, out, 1, 1);
+        fc->w = create_ndmat(prev->out->n, out, prev->out->h, prev->out->w);
+        fc->b = create_ndmat(prev->out->n, out, 1, 1);
     }
 
     fc->forward = forward_fc;

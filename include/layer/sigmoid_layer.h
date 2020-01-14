@@ -27,7 +27,7 @@ layer* sigmoid(layer* prev)
         sigmoid->in   = prev->out;
         sigmoid->prev = prev;
 
-        sigmoid->out = create_ndmat(4, prev->out->n, prev->out->c, prev->out->h, prev->out->w);
+        sigmoid->out = create_ndmat(prev->out->n, prev->out->c, prev->out->h, prev->out->w);
     }
 
     sigmoid->forward = forward_sigmoid;

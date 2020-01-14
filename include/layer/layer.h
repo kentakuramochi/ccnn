@@ -88,7 +88,7 @@ void set_input_shape(layer* l, const int n, const int c, const int h, const int 
         delete_ndmat(l->in);
     }
 
-    l->in = create_ndmat(4, n, c, h, w);
+    l->in = create_ndmat(n, c, h, w);
 }
 
 ///
@@ -106,7 +106,7 @@ void set_output_shape(layer* l, const int n, const int c, const int h, const int
         delete_ndmat(l->out);
     }
 
-    l->out = create_ndmat(4, n, c, h, w);
+    l->out = create_ndmat(n, c, h, w);
 }
 
 ///
