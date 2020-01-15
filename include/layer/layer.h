@@ -50,11 +50,11 @@ typedef struct layer_tag {
 } layer;
 
 ///
-/// @fn     create_layer
+/// @fn     layer_create
 /// @brief  create layer
 /// @return pointer to layer
 ///
-layer* create_layer(void)
+layer* layer_create(void)
 {
     layer* l = (layer*)malloc(sizeof(layer));
 
@@ -74,7 +74,7 @@ layer* create_layer(void)
 }
 
 ///
-/// @fn     set_input_shape
+/// @fn     layer_create_input
 /// @brief  set input data with shape
 /// @param[out] l   layer
 /// @param[in]  n   num of data
@@ -82,17 +82,17 @@ layer* create_layer(void)
 /// @param[in]  h   data height
 /// @param[in]  w   data width
 ///
-void set_input_shape(layer* l, const int n, const int c, const int h, const int w)
+void layer_create_input(layer* l, const int n, const int c, const int h, const int w)
 {
     if (l->in != NULL) {
-        delete_ndmat(l->in);
+        ndmat_delete(l->in);
     }
 
-    l->in = create_ndmat(n, c, h, w);
+    l->in = ndmat_create(n, c, h, w);
 }
 
 ///
-/// @fn     set_output_shape
+/// @fn     layer_create_output
 /// @brief  set output data with shape
 /// @param[out] l   layer
 /// @param[in]  n   num of data
@@ -100,22 +100,22 @@ void set_input_shape(layer* l, const int n, const int c, const int h, const int 
 /// @param[in]  h   data height
 /// @param[in]  w   data width
 ///
-void set_output_shape(layer* l, const int n, const int c, const int h, const int w)
+void layer_create_output(layer* l, const int n, const int c, const int h, const int w)
 {
     if (l->out != NULL) {
-        delete_ndmat(l->out);
+        ndmat_delete(l->out);
     }
 
-    l->out = create_ndmat(n, c, h, w);
+    l->out = ndmat_create(n, c, h, w);
 }
 
 ///
-/// @fn     connect_layer
+/// @fn     layer_connect
 /// @brief  connect layer
 /// @param[in]  prev    previous layer
 /// @param[in]  next    next layer
 ///
-void connect_layer(layer* prev, layer* next)
+void layer_connect(layer* prev, layer* next)
 {
     if ((prev == NULL) || (next == NULL)) {
         return;
@@ -128,23 +128,23 @@ void connect_layer(layer* prev, layer* next)
 }
 
 ///
-/// @fn     delete_layer
+/// @fn     layer_delete
 /// @brief  delete layer
 /// @param[in]  layer   layer
 ///
-void delete_layer(layer* layer)
+void layer_delete(layer* layer)
 {
     if (layer == NULL) {
         return;
     }
 
-    delete_ndmat(layer->in);
+    ndmat_delete(layer->in);
     layer->in = NULL;
-    delete_ndmat(layer->out);
+    ndmat_delete(layer->out);
     layer->out = NULL;
-    delete_ndmat(layer->w);
+    ndmat_delete(layer->w);
     layer->w = NULL;
-    delete_ndmat(layer->b);
+    ndmat_delete(layer->b);
     layer->b = NULL;
 
     free(layer);

@@ -11,9 +11,9 @@ void setUp(void) {}
 
 void tearDown(void) {}
 
-void test_createbaselayer(void)
+void test_create(void)
 {
-    layer* l = (layer*)create_layer();
+    layer* l = (layer*)layer_create();
 
     TEST_ASSERT_EQUAL(LAYER_NONE, l->type);
     TEST_ASSERT_NULL(l->in);
@@ -24,37 +24,36 @@ void test_createbaselayer(void)
     TEST_ASSERT_NULL(l->next);
     TEST_ASSERT_NULL(l->forward);
 
-    delete_layer(l);
+    layer_delete(l);
 }
 
-void test_setdatashape(void)
+void test_create_data(void)
 {
-    layer* l = (layer*)create_layer();
+    layer* l = (layer*)layer_create();
 
-    set_input_shape(l, 1, 3, 480, 640);
+    layer_create_input(l, 1, 3, 480, 640);
     TEST_ASSERT_EQUAL(1, l->in->n);
     TEST_ASSERT_EQUAL(3, l->in->c);
     TEST_ASSERT_EQUAL(480, l->in->h);
     TEST_ASSERT_EQUAL(640, l->in->w);
     TEST_ASSERT_EQUAL((1 * 3 * 480 * 640), l->in->elem);
 
-    set_output_shape(l, 1, 10, 240, 320);
+    layer_create_output(l, 1, 10, 240, 320);
     TEST_ASSERT_EQUAL(1, l->out->n);
     TEST_ASSERT_EQUAL(10, l->out->c);
     TEST_ASSERT_EQUAL(240, l->out->h);
     TEST_ASSERT_EQUAL(320, l->out->w);
     TEST_ASSERT_EQUAL((1 * 10 * 240 * 320), l->out->elem);
 
-    delete_layer(l);
+    layer_delete(l);
 }
 
 int main(void)
 {
     UNITY_BEGIN();
 
-    RUN_TEST(test_createbaselayer);
-    RUN_TEST(test_setdatashape);
+    RUN_TEST(test_create);
+    RUN_TEST(test_create_data);
 
     return UNITY_END();
 }
-
