@@ -11,9 +11,9 @@ void setUp(void) {}
 
 void tearDown(void) {}
 
-void test_createvalidshape(void)
+void test_create(void)
 {
-    ndmat* mat = create_ndmat(1, 3, 4, 4);
+    ndmat* mat = ndmat_create(1, 3, 4, 4);
 
     TEST_ASSERT_EQUAL(4, mat->dim);
     TEST_ASSERT_EQUAL((3 * 4 * 4), mat->elem);
@@ -26,12 +26,12 @@ void test_createvalidshape(void)
     TEST_ASSERT_EQUAL(4, mat->h);
     TEST_ASSERT_EQUAL(4, mat->w);
 
-    delete_ndmat(mat);
+    ndmat_delete(mat);
 }
 
-void test_setvaliddata(void)
+void test_set_array(void)
 {
-    ndmat* mat = create_ndmat(1, 3, 4, 4);
+    ndmat* mat = ndmat_create(1, 3, 4, 4);
 
     float array[] = {
         0, 0, 0, 0,
@@ -48,35 +48,35 @@ void test_setvaliddata(void)
         2, 2, 2, 2
     };
 
-    set_fromarray(mat, array, (sizeof(array) / sizeof(float)));
+    ndmat_set_array(mat, array, (sizeof(array) / sizeof(float)));
 
     for (int i = 0; i < mat->elem; i++) {
         TEST_ASSERT_EQUAL(array[i], mat->data[i]);
     }
 
-    delete_ndmat(mat);
+    ndmat_delete(mat);
 }
 
-void test_fillmatrix(void)
+void test_fill(void)
 {
-    ndmat* mat = create_ndmat(1, 3, 4, 4);
+    ndmat* mat = ndmat_create(1, 3, 4, 4);
 
-    fill_ndmat(mat, 1);
+    ndmat_fill(mat, 1);
 
     for (int i = 0; i < mat->elem; i++) {
         TEST_ASSERT_EQUAL(1, mat->data[i]);
     }
 
-    delete_ndmat(mat);
+    ndmat_delete(mat);
 }
 
 int main(void)
 {
     UNITY_BEGIN();
 
-    RUN_TEST(test_createvalidshape);
-    RUN_TEST(test_setvaliddata);
-    RUN_TEST(test_fillmatrix);
+    RUN_TEST(test_create);
+    RUN_TEST(test_set_array);
+    RUN_TEST(test_fill);
 
     return UNITY_END();
 }

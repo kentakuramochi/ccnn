@@ -33,7 +33,7 @@ typedef struct {
 } ndmat;
 
 ///
-/// @fn     create_ndmat
+/// @fn     ndmat_create
 /// @brief  create ndmat with specified dimension
 /// @param[in]  n   matrix number
 /// @param[in]  c   matrix channel
@@ -41,7 +41,7 @@ typedef struct {
 /// @param[in]  w   matrix width
 /// @return     pointer to ndmat
 ///
-ndmat* create_ndmat(const int n, const int c, const int h, const int w)
+ndmat* ndmat_create(const int n, const int c, const int h, const int w)
 {
     if ((n <= 0) || (c <= 0) || (h <= 0) || (w <= 0)) {
         return NULL;
@@ -78,7 +78,7 @@ ndmat* create_ndmat(const int n, const int c, const int h, const int w)
 }
 
 ///
-/// @fn     set_fromarray
+/// @fn     ndmat_set_array
 /// @brief  set ndmat data from specified array
 /// @param[out] mat     ndmat
 /// @param[in]  array   data source array
@@ -86,7 +86,7 @@ ndmat* create_ndmat(const int n, const int c, const int h, const int w)
 /// @retval     true    succeeded
 /// @retval     false   failed
 ///
-bool set_fromarray(ndmat* mat, const float* array, const int elem)
+bool ndmat_set_array(ndmat* mat, const float* array, const int elem)
 {
     if ((mat == NULL) || (array == NULL)) {
         return false;
@@ -102,12 +102,12 @@ bool set_fromarray(ndmat* mat, const float* array, const int elem)
 }
 
 ///
-/// @fn     fill_ndmat
+/// @fn     ndmat_fill
 /// @brief  fill ndmat data with specified value
 /// @param[out] mat     ndmat
 /// @param[in]  value   filling value
 ///
-void fill_ndmat(ndmat* mat, const float value)
+void ndmat_fill(ndmat* mat, const float value)
 {
     if (mat == NULL) {
         return;
@@ -119,11 +119,11 @@ void fill_ndmat(ndmat* mat, const float value)
 }
 
 ///
-/// @fn     delete_ndmat
+/// @fn     ndmat_delete
 /// @brief  delete ndmat
 /// @param[out] mat     ndmat data
 ///
-void delete_ndmat(ndmat *mat)
+void ndmat_delete(ndmat *mat)
 {
     if (mat == NULL) {
         return;
