@@ -45,6 +45,20 @@ void test_create_data(void)
     TEST_ASSERT_EQUAL(320, l->out->w);
     TEST_ASSERT_EQUAL((1 * 10 * 240 * 320), l->out->elem);
 
+    layer_create_weight(l, 10, 3, 5, 5);
+    TEST_ASSERT_EQUAL(10, l->w->n);
+    TEST_ASSERT_EQUAL(3, l->w->c);
+    TEST_ASSERT_EQUAL(5, l->w->h);
+    TEST_ASSERT_EQUAL(5, l->w->w);
+    TEST_ASSERT_EQUAL((10 * 3 * 5 * 5), l->w->elem);
+
+    layer_create_bias(l, 1, 10, 1, 1);
+    TEST_ASSERT_EQUAL(1, l->b->n);
+    TEST_ASSERT_EQUAL(10, l->b->c);
+    TEST_ASSERT_EQUAL(1, l->b->h);
+    TEST_ASSERT_EQUAL(1, l->b->w);
+    TEST_ASSERT_EQUAL((1 * 10 * 1 * 1), l->b->elem);
+
     layer_delete(l);
 }
 

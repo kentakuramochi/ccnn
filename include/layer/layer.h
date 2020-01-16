@@ -75,7 +75,7 @@ layer* layer_create(void)
 
 ///
 /// @fn     layer_create_input
-/// @brief  set input data with shape
+/// @brief  create input data with shape
 /// @param[out] l   layer
 /// @param[in]  n   num of data
 /// @param[in]  c   num of data channel
@@ -93,7 +93,7 @@ void layer_create_input(layer* l, const int n, const int c, const int h, const i
 
 ///
 /// @fn     layer_create_output
-/// @brief  set output data with shape
+/// @brief  create output data with shape
 /// @param[out] l   layer
 /// @param[in]  n   num of data
 /// @param[in]  c   num of data channel
@@ -107,6 +107,42 @@ void layer_create_output(layer* l, const int n, const int c, const int h, const 
     }
 
     l->out = ndmat_create(n, c, h, w);
+}
+
+///
+/// @fn     layer_create_weight
+/// @brief  create weight data with shape
+/// @param[out] l   layer
+/// @param[in]  n   num of data
+/// @param[in]  c   num of data channel
+/// @param[in]  h   data height
+/// @param[in]  w   data width
+///
+void layer_create_weight(layer* l, const int n, const int c, const int h, const int w)
+{
+    if (l->w != NULL) {
+        ndmat_delete(l->w);
+    }
+
+    l->w = ndmat_create(n, c, h, w);
+}
+
+///
+/// @fn     layer_create_bias
+/// @brief  create bias data with shape
+/// @param[out] l   layer
+/// @param[in]  n   num of data
+/// @param[in]  c   num of data channel
+/// @param[in]  h   data height
+/// @param[in]  w   data width
+///
+void layer_create_bias(layer* l, const int n, const int c, const int h, const int w)
+{
+    if (l->b != NULL) {
+        ndmat_delete(l->b);
+    }
+
+    l->b = ndmat_create(n, c, h, w);
 }
 
 ///
