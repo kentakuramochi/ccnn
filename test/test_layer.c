@@ -62,6 +62,25 @@ void test_create_data(void)
     layer_delete(l);
 }
 
+void test_connect(void)
+{
+    layer* l1 = (layer*)layer_create();
+    layer_create_output(l1, 1, 3, 32, 32);
+
+    layer* l2 = (layer*)layer_create();
+    layer_connect(l1, l2);
+
+    TEST_ASSERT_EQUAL(1, l2->in->n);
+    TEST_ASSERT_EQUAL(3, l2->in->c);
+    TEST_ASSERT_EQUAL(32, l2->in->h);
+    TEST_ASSERT_EQUAL(32, l2->in->w);
+
+    TEST_ASSERT_NULL(l1->prev);
+    TEST_ASSERT_EQUAL(l2, l1->next);
+    TEST_ASSERT_EQUAL(l1, l2->prev);
+    TEST_ASSERT_NULL(l2->next);
+}
+
 int main(void)
 {
     UNITY_BEGIN();
