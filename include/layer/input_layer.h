@@ -12,11 +12,11 @@ void forward_input(layer* input) {}
 
 layer* input(const int n, const int c, const int h, const int w)
 {
-    layer* input = create_layer();
+    layer* input = layer_create();
 
     input->type = LAYER_INPUT;
 
-    input->in  = create_ndmat(n, c, h, w);
+    input->in  = ndmat_create(n, c, h, w);
     input->out = input->in;
 
     input->forward = forward_input;

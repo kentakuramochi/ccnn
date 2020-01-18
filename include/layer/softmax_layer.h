@@ -29,7 +29,7 @@ void forward_softmax(layer* softmax)
 
 layer* softmax(layer* prev)
 {
-    layer* softmax = create_layer();
+    layer* softmax = layer_create();
 
     softmax->type = LAYER_SOFTMAX;
 
@@ -37,7 +37,7 @@ layer* softmax(layer* prev)
         softmax->in   = prev->out;
         softmax->prev = prev;
 
-        softmax->out = create_ndmat(prev->out->n, prev->out->c, prev->out->h, prev->out->w);
+        softmax->out = ndmat_create(prev->out->n, prev->out->c, prev->out->h, prev->out->w);
     }
 
     softmax->forward = forward_softmax;

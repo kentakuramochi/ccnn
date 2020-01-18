@@ -27,7 +27,7 @@ void forward_fc(layer* fc)
 
 layer* fc(layer* prev, int out)
 {
-    layer* fc = create_layer();
+    layer* fc = layer_create();
 
     fc->type = LAYER_FC;
 
@@ -35,10 +35,10 @@ layer* fc(layer* prev, int out)
         fc->in   = prev->out;
         fc->prev = prev;
 
-        fc->out = create_ndmat(prev->out->n, out, 1, 1);
+        fc->out = ndmat_create(prev->out->n, out, 1, 1);
 
-        fc->w = create_ndmat(prev->out->n, out, prev->out->h, prev->out->w);
-        fc->b = create_ndmat(prev->out->n, out, 1, 1);
+        fc->w = ndmat_create(prev->out->n, out, prev->out->h, prev->out->w);
+        fc->b = ndmat_create(prev->out->n, out, 1, 1);
     }
 
     fc->forward = forward_fc;
