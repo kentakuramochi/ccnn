@@ -6,6 +6,7 @@
 #ifndef NDMAT_H
 #define NDMAT_H
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
@@ -136,6 +137,24 @@ void ndmat_delete(ndmat *mat)
 
     free(mat);
     mat = NULL;
+}
+
+///
+/// @fn     ndmat_savenpy
+/// @brief  save ndmat data as npy file
+/// @param[out] mat     ndmat data
+/// @param[out] file    file name
+///
+void ndmat_savenpy(const ndmat *mat, const char* file)
+{
+    FILE *fp = fopen(file, "wb");
+
+    fprintf(fp, "\x93NUMPY\x1\x0@@{'descr': '<f4', 'fortran_order': False, 'shape': (");
+    fprintf(fp, ")}");
+
+    fwrite(mat->data, mat->elem, sizeof(float), fp); 
+
+    fclose(fp);
 }
 
 #endif // NDMAT_H 
