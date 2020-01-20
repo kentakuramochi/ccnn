@@ -147,12 +147,42 @@ void ndmat_delete(ndmat *mat)
 ///
 void ndmat_savenpy(const ndmat *mat, const char* file)
 {
+    const int magic_len = 6;
+    const int header_align = 64;
+
+    char header[256];
+
+    // npy header
+    // format version 1.0
+    // 4Byte float, little endian
+    // row-major order
+    // write shape
+    snprintf(header, sizeof(header),
+        "\x93NUMPY\x1\x0@@{'descr': '<f4', 'fortran_order': False, 'shape': (%d, %d, %d, %d)}", mat->n, mat->c, mat->h, mat->w);
+
+    // "\x93NUMPY" + "\x1\x0" + header length (2Byte)
+    int hlen = strlen(header) - (magic_len + 2 + 2);
+
+    // padding length
+    uint16_t pad_len = header_align - (hlen % header_align);
+    uint16_t prefix_len = (hlen - magic_len) + pad_len;
+
+    // header length: unsigned 16bit integer, little endian
+    header[6] = prefix_len & 0x00ff;
+    header[7] = prefix_len & 0xff00;
+
+    // append 0x20 to the last of header with 64Byte padding
+    int idx = strlen(header) + 1;
+    for (int i = 0; i < pad_len; i++) {
+        header[idx] = '\x20';
+        idx++;
+    }
+    header[idx] = '\0';
+
     FILE *fp = fopen(file, "wb");
 
-    fprintf(fp, "\x93NUMPY\x1\x0@@{'descr': '<f4', 'fortran_order': False, 'shape': (");
-    fprintf(fp, ")}");
-
-    fwrite(mat->data, mat->elem, sizeof(float), fp); 
+    fwrite(header, 1, strlen(header), fp);
+    fwrite(mat->data, sizeof(float), mat->elem, fp);
 
     fclose(fp);
 }
