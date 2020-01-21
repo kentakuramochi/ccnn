@@ -70,6 +70,19 @@ void test_fill(void)
     ndmat_delete(mat);
 }
 
+void test_savenpy(void)
+{
+    ndmat* mat = ndmat_create(1, 3, 4, 4);
+
+    for (int i = 0; i < mat->elem; i++) {
+        mat->data[i] = i;
+    }
+
+    ndmat_savenpy(mat, "./build/results/test.npy");
+
+    ndmat_delete(mat);
+}
+
 int main(void)
 {
     UNITY_BEGIN();
@@ -77,6 +90,7 @@ int main(void)
     RUN_TEST(test_create);
     RUN_TEST(test_set_array);
     RUN_TEST(test_fill);
+    RUN_TEST(test_savenpy);
 
     return UNITY_END();
 }
