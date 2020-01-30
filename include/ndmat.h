@@ -155,18 +155,18 @@ void ndmat_savenpy(const ndmat *mat, const char* file)
         "\x93NUMPY@@@@{'descr': '<f4', 'fortran_order': False, 'shape': (%d, %d, %d, %d), }", mat->n, mat->c, mat->h, mat->w);
 
     // padding length for alignment
-    const int header_align = 64;
-    int pad_len = header_align - strlen(header) % header_align;
+    int pad_len = 16 - (strlen(header) + 1) % 16;
 
     // append padding 0x20 (' ') to the end of header and terminate by LF
     int idx = strlen(header);
     for (int i = 0; i < pad_len; i++) {
         header[idx++] = ' ';
     }
-    header[idx - 1] = '\n';
+    header[idx++] = '\n';
 
     // header length: unsigned 16bit integer, little endian
-    uint16_t header_len = strlen(header) - (6 + 2 + 2);
+    uint16_t header_len = strlen(header) - 10;
+
     header[8] = (uint8_t)(header_len & 0x00ff);
     header[9] = (uint8_t)(header_len & 0xff00);
 

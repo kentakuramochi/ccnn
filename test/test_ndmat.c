@@ -72,7 +72,7 @@ void test_fill(void)
 
 void test_savenpy(void)
 {
-    ndmat* mat = ndmat_create(1, 3, 4, 4);
+    ndmat* mat = ndmat_create(1, 3, 4, 5);
 
     for (int i = 0; i < mat->elem; i++) {
         mat->data[i] = i;
