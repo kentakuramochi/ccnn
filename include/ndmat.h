@@ -182,4 +182,61 @@ void ndmat_savenpy(const ndmat *mat, const char* file)
     fclose(fp);
 }
 
+///
+/// @fn     ndmat_loadnpy
+/// @brief  load ndmat data from npy file
+/// @param[out] file    file name
+///
+ndmat* ndmat_loadnpy(const char* file)
+{
+    FILE *fp = fopen(file, "rb");
+
+    if (fp == NULL) {
+        fclose(fp);
+        return NULL;
+    }
+
+    // preamble
+    char valid_preamble[] = "\x93NUMPY\x1\x0";
+    char preamble[8];
+
+    fread(preamble, 1, 8, fp);
+
+    if (!memcmp(preamble, valid_preamble, 8)) {
+        fclose(fp);
+        return NULL;
+    }
+
+    // header
+    uint16_t header_len;
+    fread(&header_len, sizeof(uint16_t), 1, fp);
+
+    if (((header_len + 10) % 16) != 0) {
+        fclose(fp);
+        return NULL;
+    }
+
+    char header[256];
+    fread(&header, 1, header_len, fp);
+    header[header_len] = '\0';
+
+    char *paren = header;
+    paren = strchr(paren, "(");
+
+    int n, c, h, w;
+    sscanf(paren, "(%d, %d, %d, %d)", &n, &c, &h, &w);
+
+    ndmat* mat = ndmat_create(n, c, h, w);
+    if (mat == NULL) {
+        fclose(fp);
+        return NULL;
+    }
+
+    fread(mat->data, sizeof(float), mat->elem, fp);
+
+    fclose(fp);
+
+    return mat;
+}
+
 #endif // NDMAT_H 
