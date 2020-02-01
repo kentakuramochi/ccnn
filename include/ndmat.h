@@ -192,6 +192,7 @@ ndmat* ndmat_loadnpy(const char* file)
     FILE *fp = fopen(file, "rb");
 
     if (fp == NULL) {
+        fprintf(stdout, "failed to open file\n");
         fclose(fp);
         return NULL;
     }
@@ -199,32 +200,39 @@ ndmat* ndmat_loadnpy(const char* file)
     // preamble
     char valid_preamble[] = "\x93NUMPY\x1\x0";
     char preamble[8];
-
     fread(preamble, 1, 8, fp);
-
-    if (!memcmp(preamble, valid_preamble, 8)) {
+    if (memcmp(preamble, valid_preamble, 8) != 0) {
         fclose(fp);
         return NULL;
     }
 
-    // header
+    // header length
     uint16_t header_len;
     fread(&header_len, sizeof(uint16_t), 1, fp);
-
     if (((header_len + 10) % 16) != 0) {
         fclose(fp);
         return NULL;
     }
 
+    // header
     char header[256];
     fread(&header, 1, header_len, fp);
     header[header_len] = '\0';
 
+    // get shape
     char *paren = header;
-    paren = strchr(paren, "(");
+    paren = strchr(paren, '(');
+    char *paren_s = paren;
+    paren++;
+    paren = strchr(paren, ')');
+
+    ptrdiff_t shape_size = paren - paren_s + 1;
+
+    char shape[128];
+    strncpy(shape, paren_s, shape_size);
 
     int n, c, h, w;
-    sscanf(paren, "(%d, %d, %d, %d)", &n, &c, &h, &w);
+    sscanf(paren_s, "(%d, %d, %d, %d)", &n, &c, &h, &w);
 
     ndmat* mat = ndmat_create(n, c, h, w);
     if (mat == NULL) {

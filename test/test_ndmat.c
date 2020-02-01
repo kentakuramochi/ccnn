@@ -83,6 +83,28 @@ void test_savenpy(void)
     ndmat_delete(mat);
 }
 
+void test_loadnpy(void)
+{
+    ndmat* mat = ndmat_loadnpy("./build/results/test.npy");
+
+    TEST_ASSERT_EQUAL(4, mat->dim);
+    TEST_ASSERT_EQUAL((3 * 4 * 5), mat->elem);
+    TEST_ASSERT_EQUAL(1, mat->shape[0]);
+    TEST_ASSERT_EQUAL(3, mat->shape[1]);
+    TEST_ASSERT_EQUAL(4, mat->shape[2]);
+    TEST_ASSERT_EQUAL(5, mat->shape[3]);
+    TEST_ASSERT_EQUAL(1, mat->n);
+    TEST_ASSERT_EQUAL(3, mat->c);
+    TEST_ASSERT_EQUAL(4, mat->h);
+    TEST_ASSERT_EQUAL(5, mat->w);
+
+    for (int i = 0; i < mat->elem; i++) {
+        TEST_ASSERT_EQUAL(i, mat->data[i]);
+    }
+
+    ndmat_delete(mat);
+}
+
 int main(void)
 {
     UNITY_BEGIN();
@@ -91,6 +113,7 @@ int main(void)
     RUN_TEST(test_set_array);
     RUN_TEST(test_fill);
     RUN_TEST(test_savenpy);
+    RUN_TEST(test_loadnpy);
 
     return UNITY_END();
 }
