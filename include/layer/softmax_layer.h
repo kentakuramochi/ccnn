@@ -10,7 +10,7 @@
 
 #include "layer.h"
 
-void forward_softmax(layer* softmax)
+void forward_softmax(layer_t* softmax)
 {
     for (int n = 0; n < softmax->in->n; n++) {
         float *in  = &softmax->in->data[n * (softmax->in->c * softmax->in->h * softmax->in->w)];
@@ -27,9 +27,9 @@ void forward_softmax(layer* softmax)
     }
 }
 
-layer* softmax(layer* prev)
+layer_t* softmax(layer_t* prev)
 {
-    layer* softmax = layer_create();
+    layer_t* softmax = layer_create();
 
     softmax->type = LAYER_SOFTMAX;
 

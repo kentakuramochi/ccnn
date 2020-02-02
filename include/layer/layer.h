@@ -31,7 +31,7 @@ typedef enum {
 } LAYER_TYPE;
 
 ///
-/// @struct layer
+/// @struct layer_t
 /// @brief  network layer
 ///
 typedef struct layer_tag {
@@ -47,102 +47,102 @@ typedef struct layer_tag {
     struct layer_tag* next;
 
     void (*forward)(struct layer_tag*);
-} layer;
+} layer_t;
 
 ///
 /// @fn     layer_create
 /// @brief  create layer
 /// @return pointer to layer
 ///
-layer* layer_create(void)
+layer_t* layer_create(void)
 {
-    layer* l = (layer*)malloc(sizeof(layer));
+    layer_t* layer = (layer_t*)malloc(sizeof(layer_t));
 
-    l->type = LAYER_NONE;
+    layer->type = LAYER_NONE;
 
-    l->in  = NULL;
-    l->out = NULL;
-    l->w   = NULL;
-    l->b   = NULL;
+    layer->in  = NULL;
+    layer->out = NULL;
+    layer->w   = NULL;
+    layer->b   = NULL;
 
-    l->prev = NULL;
-    l->next = NULL;
+    layer->prev = NULL;
+    layer->next = NULL;
 
-    l->forward = NULL;
+    layer->forward = NULL;
 
-    return l;
+    return layer;
 }
 
 ///
 /// @fn     layer_create_input
 /// @brief  create input data with shape
-/// @param[out] l   layer
-/// @param[in]  n   num of data
-/// @param[in]  c   num of data channel
-/// @param[in]  h   data height
-/// @param[in]  w   data width
+/// @param[out] layer   layer
+/// @param[in]  n       num of data
+/// @param[in]  c       num of data channel
+/// @param[in]  h       data height
+/// @param[in]  w       data width
 ///
-void layer_create_input(layer* l, const int n, const int c, const int h, const int w)
+void layer_create_input(layer_t* layer, const int n, const int c, const int h, const int w)
 {
-    if (l->in != NULL) {
-        ndmat_delete(l->in);
+    if (layer->in != NULL) {
+        ndmat_delete(layer->in);
     }
 
-    l->in = ndmat_create(n, c, h, w);
+    layer->in = ndmat_create(n, c, h, w);
 }
 
 ///
 /// @fn     layer_create_output
 /// @brief  create output data with shape
-/// @param[out] l   layer
-/// @param[in]  n   num of data
-/// @param[in]  c   num of data channel
-/// @param[in]  h   data height
-/// @param[in]  w   data width
+/// @param[out] layer   layer
+/// @param[in]  n       num of data
+/// @param[in]  c       num of data channel
+/// @param[in]  h       data height
+/// @param[in]  w       data width
 ///
-void layer_create_output(layer* l, const int n, const int c, const int h, const int w)
+void layer_create_output(layer_t* layer, const int n, const int c, const int h, const int w)
 {
-    if (l->out != NULL) {
-        ndmat_delete(l->out);
+    if (layer->out != NULL) {
+        ndmat_delete(layer->out);
     }
 
-    l->out = ndmat_create(n, c, h, w);
+    layer->out = ndmat_create(n, c, h, w);
 }
 
 ///
 /// @fn     layer_create_weight
 /// @brief  create weight data with shape
-/// @param[out] l   layer
-/// @param[in]  n   num of data
-/// @param[in]  c   num of data channel
-/// @param[in]  h   data height
-/// @param[in]  w   data width
+/// @param[out] layer   layer
+/// @param[in]  n       num of data
+/// @param[in]  c       num of data channel
+/// @param[in]  h       data height
+/// @param[in]  w       data width
 ///
-void layer_create_weight(layer* l, const int n, const int c, const int h, const int w)
+void layer_create_weight(layer_t* layer, const int n, const int c, const int h, const int w)
 {
-    if (l->w != NULL) {
-        ndmat_delete(l->w);
+    if (layer->w != NULL) {
+        ndmat_delete(layer->w);
     }
 
-    l->w = ndmat_create(n, c, h, w);
+    layer->w = ndmat_create(n, c, h, w);
 }
 
 ///
 /// @fn     layer_create_bias
 /// @brief  create bias data with shape
-/// @param[out] l   layer
-/// @param[in]  n   num of data
-/// @param[in]  c   num of data channel
-/// @param[in]  h   data height
-/// @param[in]  w   data width
+/// @param[out] layer   layer
+/// @param[in]  n       num of data
+/// @param[in]  c       num of data channel
+/// @param[in]  h       data height
+/// @param[in]  w       data width
 ///
-void layer_create_bias(layer* l, const int n, const int c, const int h, const int w)
+void layer_create_bias(layer_t* layer, const int n, const int c, const int h, const int w)
 {
-    if (l->b != NULL) {
-        ndmat_delete(l->b);
+    if (layer->b != NULL) {
+        ndmat_delete(layer->b);
     }
 
-    l->b = ndmat_create(n, c, h, w);
+    layer->b = ndmat_create(n, c, h, w);
 }
 
 ///
@@ -151,7 +151,7 @@ void layer_create_bias(layer* l, const int n, const int c, const int h, const in
 /// @param[in]  prev    previous layer
 /// @param[in]  next    next layer
 ///
-void layer_connect(layer* prev, layer* next)
+void layer_connect(layer_t* prev, layer_t* next)
 {
     if ((prev == NULL) || (next == NULL)) {
         return;
@@ -168,7 +168,7 @@ void layer_connect(layer* prev, layer* next)
 /// @brief  delete layer
 /// @param[in]  layer   layer
 ///
-void layer_delete(layer* layer)
+void layer_delete(layer_t* layer)
 {
     if (layer == NULL) {
         return;

@@ -10,16 +10,16 @@
 
 #include "layer.h"
 
-void forward_sigmoid(layer* sigmoid)
+void forward_sigmoid(layer_t* sigmoid)
 {
     for (int i = 0; i < sigmoid->in->elem; i++) {
         sigmoid->out->data[i] = 1.0 / (1 + exp(-sigmoid->in->data[i]));
     }
 }
 
-layer* sigmoid(layer* prev)
+layer_t* sigmoid(layer_t* prev)
 {
-    layer* sigmoid = layer_create();
+    layer_t* sigmoid = layer_create();
 
     sigmoid->type = LAYER_SIGMOID;
 

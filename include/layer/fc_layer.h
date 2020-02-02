@@ -8,7 +8,7 @@
 
 #include "layer.h"
 
-void forward_fc(layer* fc)
+void forward_fc(layer_t* fc)
 {
     for (int n = 0; n < fc->out->n; n++) {
         float* in  = &fc->in->data[n * (fc->in->c * fc->in->h * fc->in->w)];
@@ -25,9 +25,9 @@ void forward_fc(layer* fc)
     }
 }
 
-layer* fc(layer* prev, int out)
+layer_t* fc(layer_t* prev, int out)
 {
-    layer* fc = layer_create();
+    layer_t* fc = layer_create();
 
     fc->type = LAYER_FC;
 

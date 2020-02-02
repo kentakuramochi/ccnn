@@ -8,16 +8,16 @@
 
 #include "layer.h"
 
-void forward_relu(layer* relu)
+void forward_relu(layer_t* relu)
 {
     for (int i = 0; i < relu->in->elem; i++) {
         relu->out->data[i] = (relu->in->data[i] > 0) ? relu->in->data[i] : 0;
     }
 }
 
-layer* relu(layer* prev)
+layer_t* relu(layer_t* prev)
 {
-    layer* relu = layer_create();
+    layer_t* relu = layer_create();
 
     relu->type = LAYER_RELU;
 

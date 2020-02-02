@@ -8,11 +8,11 @@
 
 #include "layer.h"
 
-void forward_input(layer* input) {}
+void forward_input(layer_t* input) {}
 
-layer* input(const int n, const int c, const int h, const int w)
+layer_t* input(const int n, const int c, const int h, const int w)
 {
-    layer* input = layer_create();
+    layer_t* input = layer_create();
 
     input->type = LAYER_INPUT;
 
