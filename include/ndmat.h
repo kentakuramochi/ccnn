@@ -119,6 +119,35 @@ void ndmat_fill(ndmat* mat, const float value)
     }
 }
 
+void ndmat_add(ndmat* a, ndmat* b, ndmat *c)
+{
+    for (int i = 0; i < a->elem; i++) {
+        c->data[i] = a->data[i] + b->data[i];
+    }
+}
+
+void ndmat_mul(float k, ndmat* a, ndmat* b)
+{
+    for (int i = 0; i < a->elem; i++) {
+        b->data[i] = k * a->data[i];
+    }
+}
+
+void ndmat_matmul(ndmat* a, ndmat* b, ndmat* c)
+{
+    for (int i = 0; i < a->h; i++) {
+        int ay = i * a->w;
+        int cy = i * c->w;
+        for (int j = 0; j < b->w; j++) {
+            float sum = 0;
+            for (int k = 0; k < b->h; k++) {
+                sum += a->data[ay + k] * b->data[k * b->w + j];
+            }
+            c->data[cy + j] = sum;
+        }
+    }
+}
+
 ///
 /// @fn     ndmat_delete
 /// @brief  delete ndmat
