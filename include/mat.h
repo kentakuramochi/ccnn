@@ -81,7 +81,11 @@ mat_t* mat_copy_array(mat_t* mat, const float* array)
         return NULL;
     }
 
-    return (mat_t*)memcpy(mat->data, array, (sizeof(float) * mat->row * mat->col));
+    if (memcpy(mat->data, array, (sizeof(float) * mat->row * mat->col)) == NULL) {
+        return NULL;
+    }
+
+    return mat;
 }
 
 ///
@@ -100,8 +104,12 @@ mat_t* mat_copy(mat_t* dst, const mat_t* src)
     if ((dst->row != src->row) || (dst->col != src->col)) {
         return NULL;
     }
+    
+    if (memcpy(dst->data, src->data, (sizeof(float) * src->row * src->col)) == NULL) {
+        return NULL;
+    }
 
-    return (mat_t*)memcpy(dst->data, src->data, (sizeof(float) * src->row * src->col));
+    return dst;
 }
 
 ///

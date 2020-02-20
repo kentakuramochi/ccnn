@@ -54,7 +54,8 @@ void test_mat_copy_array(void)
         3, 4, 5
     };
 
-    TEST_ASSERT_NOT_NULL(mat_copy_array(mat, array));
+    TEST_ASSERT_EQUAL_PTR(mat, mat_copy_array(mat, array));
+    TEST_ASSERT_NOT_NULL(mat);
 
     for (int i = 0; i < (mat->row * mat->col); i++) {
         TEST_ASSERT_EQUAL(array[i], mat->data[i]);
@@ -77,7 +78,8 @@ void test_mat_copy(void)
         mat2->data[i] = 1;
     }
 
-    TEST_ASSERT_NOT_NULL(mat_copy(mat2, mat));
+    TEST_ASSERT_EQUAL_PTR(mat2, mat_copy(mat2, mat));
+    TEST_ASSERT_NOT_NULL(mat2);
 
     for (int i = 0; i < (mat2->row * mat2->col); i++) {
         TEST_ASSERT_EQUAL(array[i], mat2->data[i]);
@@ -101,6 +103,7 @@ void test_mat_copy_failure(void)
     }
 
     TEST_ASSERT_NULL(mat_copy(mat2, mat));
+    TEST_ASSERT_NOT_NULL(mat2);
 
     for (int i = 0; i < (mat2->row * mat2->col); i++) {
         TEST_ASSERT_EQUAL(1, mat2->data[i]);
