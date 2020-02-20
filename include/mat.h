@@ -7,6 +7,7 @@
 #define MAT_H
 
 #include <stdlib.h>
+#include <string.h>
 
 ///
 /// @struct mat_t
@@ -65,6 +66,22 @@ void mat_free(mat_t* mat)
     }
 
     free(mat);
+}
+
+///
+/// @fn     mat_copy_array
+/// @brief  copy matrix data from 1-d array
+/// @param[out] mat     matrix
+/// @param[in]  array   source
+/// @return     pointer to matrix
+///
+mat_t* mat_copy_array(mat_t* mat, const float* array)
+{
+    if ((mat == NULL) || (array == NULL)) {
+        return NULL;
+    }
+
+    return (mat_t*)memcpy(mat->data, array, (sizeof(float) * mat->row * mat->col));
 }
 
 #endif
