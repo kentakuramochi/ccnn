@@ -104,4 +104,30 @@ mat_t* mat_copy(mat_t* dst, const mat_t* src)
     return (mat_t*)memcpy(dst->data, src->data, (sizeof(float) * src->row * src->col));
 }
 
+///
+/// @fn     mat_clone
+/// @brief  clone matrix
+/// @param[in]  src source matrix
+/// @return     pointer to new matrix
+///
+mat_t* mat_clone(const mat_t* src)
+{
+    if (src == NULL) {
+        return NULL;
+    }
+
+    mat_t* mat = mat_alloc(src->row, src->col);
+    if (mat == NULL) {
+        free(mat);
+        return NULL;
+    }
+    
+    if (memcpy(mat->data, src->data, (sizeof(float) * src->row * src->col)) == NULL) {
+        mat_free(mat);
+        return NULL;
+    }
+
+    return mat;
+}
+
 #endif

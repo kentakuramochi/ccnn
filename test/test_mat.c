@@ -107,6 +107,28 @@ void test_mat_copy_failure(void)
     }
 }
 
+void test_mat_clone(void)
+{
+    mat_t* mat = mat_alloc(2, 3);
+
+    float array[] = {
+        0, 1, 2,
+        3, 4, 5
+    };
+
+    mat_copy_array(mat, array);
+
+    mat_t* mat2 = mat_clone(mat);
+    TEST_ASSERT_NOT_NULL(mat2);
+
+    TEST_ASSERT_EQUAL(2, mat2->row);
+    TEST_ASSERT_EQUAL(3, mat2->col);
+
+    for (int i = 0; i < (mat2->row * mat2->col); i++) {
+        TEST_ASSERT_EQUAL(array[i], mat2->data[i]);
+    }
+}
+
 int main(void)
 {
     UNITY_BEGIN();
@@ -116,6 +138,7 @@ int main(void)
     RUN_TEST(test_mat_copy_array);
     RUN_TEST(test_mat_copy);
     RUN_TEST(test_mat_copy_failure);
+    RUN_TEST(test_mat_clone);
 
     return UNITY_END();
 }
