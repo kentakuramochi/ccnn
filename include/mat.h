@@ -84,4 +84,24 @@ mat_t* mat_copy_array(mat_t* mat, const float* array)
     return (mat_t*)memcpy(mat->data, array, (sizeof(float) * mat->row * mat->col));
 }
 
+///
+/// @fn     mat_copy
+/// @brief  copy matrix data
+/// @param[out] dst dest matrix
+/// @param[in]  src source matrix
+/// @return     pointer to matrix
+///
+mat_t* mat_copy(mat_t* dst, const mat_t* src)
+{
+    if ((dst == NULL) || (src == NULL)) {
+        return NULL;
+    }
+
+    if ((dst->row != src->row) || (dst->col != src->col)) {
+        return NULL;
+    }
+
+    return (mat_t*)memcpy(dst->data, src->data, (sizeof(float) * src->row * src->col));
+}
+
 #endif
