@@ -192,4 +192,28 @@ mat_t* mat_mul_scalar(const mat_t* a, const float k, mat_t* b)
     return b;
 }
 
+///
+/// @fn     mat_mul
+/// @brief  multiply matrix: c = a x b
+/// @param[in]  a   matrix
+/// @param[in]  b   matrix
+/// @param[out] c   matrix
+/// @return     pointer to c
+/// @note   omit size checking
+///
+mat_t* mat_mul(const mat_t* a, const mat_t* b, mat_t* c)
+{
+    for (int i = 0; i < a->row; i++) {
+        for (int j = 0; j < b->row; j++) {
+            float sum = 0;
+            for (int k = 0; k < a->col; k++) {
+                sum += a->data[i * a->col + k] * b->data[k * b->col + j];
+            }
+            c->data[i * b->col + j] = sum;
+        }
+    }
+
+    return c;
+}
+
 #endif
