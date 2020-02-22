@@ -132,6 +132,62 @@ void test_mat_clone(void)
     }
 }
 
+void test_mat_add(void)
+{
+    mat_t* a = mat_alloc(2, 3);
+    mat_copy_array(a, (float[]){
+        0, 1, 2,
+        3, 4, 5
+    });
+
+    mat_t* b = mat_alloc(2, 3);
+    mat_copy_array(b, (float[]){
+        6, 7, 8,
+        9, 10, 11
+    });
+
+    mat_t* c = mat_alloc(2, 3);
+
+    TEST_ASSERT_EQUAL_PTR(c, mat_add(a, b, c));
+
+    float correct[] = {
+        6, 8, 10,
+        12, 14, 16
+    };
+
+    for (int i = 0; i < (2 * 3); i++) {
+        TEST_ASSERT_EQUAL(correct[i], c->data[i]);
+    }
+}
+
+void test_mat_sub(void)
+{
+    mat_t* a = mat_alloc(2, 3);
+    mat_copy_array(a, (float[]){
+        0, 1, 2,
+        3, 4, 5
+    });
+
+    mat_t* b = mat_alloc(2, 3);
+    mat_copy_array(b, (float[]){
+        5, 4, 3,
+        2, 1, 0
+    });
+
+    mat_t* c = mat_alloc(2, 3);
+
+    TEST_ASSERT_EQUAL_PTR(c, mat_sub(a, b, c));
+
+    float correct[] = {
+        -5, -3, -1,
+        1, 3, 5
+    };
+
+    for (int i = 0; i < (2 * 3); i++) {
+        TEST_ASSERT_EQUAL(correct[i], c->data[i]);
+    }
+}
+
 int main(void)
 {
     UNITY_BEGIN();
@@ -142,6 +198,8 @@ int main(void)
     RUN_TEST(test_mat_copy);
     RUN_TEST(test_mat_copy_failure);
     RUN_TEST(test_mat_clone);
+    RUN_TEST(test_mat_add);
+    RUN_TEST(test_mat_sub);
 
     return UNITY_END();
 }

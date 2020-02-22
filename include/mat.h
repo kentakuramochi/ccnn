@@ -138,4 +138,40 @@ mat_t* mat_clone(const mat_t* src)
     return mat;
 }
 
+///
+/// @fn     mat_add
+/// @brief  add matrix c = a + b
+/// @param[in]  a   src aatrix 1
+/// @param[in]  b   src matrix 2
+/// @param[in]  c   dst matrix
+/// @return     pointer to c
+/// @note   omit size checking
+///
+mat_t* mat_add(const mat_t* a, const mat_t* b, mat_t* c)
+{
+    for (int i = 0; i < (a->row * a->col); i++) {
+        c->data[i] = a->data[i] + b->data[i];
+    }
+
+    return c;
+}
+
+///
+/// @fn     mat_sub
+/// @brief  subtract matrix c = a - b
+/// @param[in]  a   src aatrix 1
+/// @param[in]  b   src matrix 2
+/// @param[in]  c   dst matrix
+/// @return     pointer to c
+/// @note   omit size checking
+///
+mat_t* mat_sub(const mat_t* a, const mat_t* b, mat_t* c)
+{
+    for (int i = 0; i < (a->row * a->col); i++) {
+        c->data[i] = a->data[i] - b->data[i];
+    }
+
+    return c;
+}
+
 #endif
