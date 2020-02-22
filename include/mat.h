@@ -216,4 +216,23 @@ mat_t* mat_mul(const mat_t* a, const mat_t* b, mat_t* c)
     return c;
 }
 
+///
+/// @fn     mat_trans
+/// @brief  transpose matrix
+/// @param[in]  a   src matrix
+/// @param[out] ta  transposed matrix
+/// @return     pointer to ta
+/// @note   omit size checking
+///
+mat_t* mat_trans(const mat_t* a, mat_t* ta)
+{
+    for (int i = 0; i < a->row; i++) {
+        for (int j = 0; j < a->col; j++) {
+            ta->data[j * a->row + i] = a->data[i * a->col + j];
+        }
+    }
+
+    return ta;
+}
+
 #endif
