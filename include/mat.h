@@ -141,7 +141,7 @@ mat_t* mat_clone(const mat_t* src)
 ///
 /// @fn     mat_add
 /// @brief  add matrix c = a + b
-/// @param[in]  a   src aatrix 1
+/// @param[in]  a   src matrix 1
 /// @param[in]  b   src matrix 2
 /// @param[out] c   dst matrix
 /// @return     pointer to c
@@ -159,7 +159,7 @@ mat_t* mat_add(const mat_t* a, const mat_t* b, mat_t* c)
 ///
 /// @fn     mat_sub
 /// @brief  subtract matrix c = a - b
-/// @param[in]  a   src aatrix 1
+/// @param[in]  a   src matrix 1
 /// @param[in]  b   src matrix 2
 /// @param[out] c   dst matrix
 /// @return     pointer to c
@@ -177,7 +177,7 @@ mat_t* mat_sub(const mat_t* a, const mat_t* b, mat_t* c)
 ///
 /// @fn     mat_mul_scalar
 /// @brief  scalar multiply matrix b = k * a 
-/// @param[in]  a   src aatrix
+/// @param[in]  a   src matrix
 /// @param[in]  k   coefficient
 /// @param[out] b   dst matrix
 /// @return     pointer to b
