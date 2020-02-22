@@ -60,6 +60,8 @@ void test_mat_copy_array(void)
     for (int i = 0; i < (mat->row * mat->col); i++) {
         TEST_ASSERT_EQUAL(array[i], mat->data[i]);
     }
+
+    mat_free(mat);
 }
 
 void test_mat_copy(void)
@@ -84,6 +86,9 @@ void test_mat_copy(void)
     for (int i = 0; i < (mat2->row * mat2->col); i++) {
         TEST_ASSERT_EQUAL(array[i], mat2->data[i]);
     }
+
+    mat_free(mat);
+    mat_free(mat2);
 }
 
 void test_mat_copy_failure(void)
@@ -108,6 +113,9 @@ void test_mat_copy_failure(void)
     for (int i = 0; i < (mat2->row * mat2->col); i++) {
         TEST_ASSERT_EQUAL(1, mat2->data[i]);
     }
+
+    mat_free(mat);
+    mat_free(mat2);
 }
 
 void test_mat_clone(void)
@@ -130,6 +138,9 @@ void test_mat_clone(void)
     for (int i = 0; i < (mat2->row * mat2->col); i++) {
         TEST_ASSERT_EQUAL(array[i], mat2->data[i]);
     }
+
+    mat_free(mat);
+    mat_free(mat2);
 }
 
 void test_mat_add(void)
@@ -158,6 +169,10 @@ void test_mat_add(void)
     for (int i = 0; i < (2 * 3); i++) {
         TEST_ASSERT_EQUAL(correct[i], c->data[i]);
     }
+
+    mat_free(a);
+    mat_free(b);
+    mat_free(c);
 }
 
 void test_mat_sub(void)
@@ -186,6 +201,10 @@ void test_mat_sub(void)
     for (int i = 0; i < (2 * 3); i++) {
         TEST_ASSERT_EQUAL(correct[i], c->data[i]);
     }
+
+    mat_free(a);
+    mat_free(b);
+    mat_free(c);
 }
 
 void test_mat_mul_scalar(void)
