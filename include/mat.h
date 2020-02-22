@@ -174,4 +174,22 @@ mat_t* mat_sub(const mat_t* a, const mat_t* b, mat_t* c)
     return c;
 }
 
+///
+/// @fn     mat_mul_scalar
+/// @brief  scalar multiply matrix b = k * a 
+/// @param[in]  a   src aatrix
+/// @param[in]  k   coefficient
+/// @param[in]  b   dst matrix
+/// @return     pointer to b
+/// @note   omit size checking
+///
+mat_t* mat_mul_scalar(const mat_t* a, const float k, mat_t* b)
+{
+    for (int i = 0; i < (a->row * a->col); i++) {
+        b->data[i] = k * a->data[i];
+    }
+
+    return b;
+}
+
 #endif

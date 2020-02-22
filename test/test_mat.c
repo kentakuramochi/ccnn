@@ -188,6 +188,33 @@ void test_mat_sub(void)
     }
 }
 
+void test_mat_mul_scalar(void)
+{
+    mat_t* a = mat_alloc(2, 3);
+    mat_copy_array(a, (float[]){
+        -2, -1, 0,
+        1, 2, 3
+    });
+
+    float k = 2;
+
+    mat_t* b  = mat_alloc(2, 3);
+
+    TEST_ASSERT_EQUAL_PTR(b, mat_mul_scalar(a, k, b));
+
+    float correct[] = {
+        -4, -2, 0,
+        2, 4, 6
+    };
+
+    for (int i = 0; i < (2 * 3); i++) {
+        TEST_ASSERT_EQUAL(correct[i], b->data[i]);
+    }
+
+    mat_free(a);
+    mat_free(b);
+}
+
 int main(void)
 {
     UNITY_BEGIN();
@@ -200,6 +227,7 @@ int main(void)
     RUN_TEST(test_mat_clone);
     RUN_TEST(test_mat_add);
     RUN_TEST(test_mat_sub);
+    RUN_TEST(test_mat_mul_scalar);
 
     return UNITY_END();
 }
