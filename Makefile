@@ -21,8 +21,9 @@ RESULTS  := $(patsubst $(TESTDIR)/test_%.c, $(RESDIR)/test_%.txt, $(TESTSRCS))
 .PRECIOUS: $(OBJDIR)/%.o
 .PRECIOUS: $(RESDIR)/%.txt
 
-CC     := gcc
-CFLAGS := -Wall -Wextra -Wpedantic -Werror -std=c11 -I$(INCDIR) -I$(UNITYDIR) -DTEST
+CC      := gcc
+CFLAGS   = -Wall -Wextra -Wpedantic -Werror -std=c11 -I$(INCDIR) -I$(UNITYDIR) -DTEST
+LIBS    := -lm
 
 COMPILE := $(CC) -c
 LINK    := $(CC)
@@ -45,13 +46,13 @@ $(RESDIR)/%.txt: $(BUILDDIR)/%.out
 	./$< > $@ 2>&1
 
 $(BUILDDIR)/test_%.out: $(OBJDIR)/test_%.o $(OBJDIR)/unity.o
-	$(LINK) -o $@ $^
+	$(LINK) $^ $(LIBS) -o $@
 
 $(OBJDIR)/%.o:: $(TESTDIR)/%.c
-	$(COMPILE) $(CFLAGS) $< -o $@
+	$(COMPILE) $(CFLAGS) $< $(LIBS) -o $@
 
 $(OBJDIR)/%.o:: $(UNITYDIR)/%.c $(UNITYDIR)/%.h
-	$(COMPILE) $(CFLAGS) $< -o $@
+	$(COMPILE) $(CFLAGS) $< $(LIBS) -o $@
 
 $(DEPDIR)/%.d:: $(TESTDIR)/%.c
 	$(DEPEND) $@ $<
@@ -72,4 +73,3 @@ clean:
 	$(RM) $(OBJDIR)/*.o
 	$(RM) $(BUILDDIR)/*.out
 	$(RM) $(RESDIR)/*.txt
-
