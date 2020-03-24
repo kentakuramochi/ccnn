@@ -10,36 +10,36 @@
 
 ///
 /// @fn     fc_forward
-/// @brief  forward 
-/// @param[in]  fc  fc layer
-/// @param[in]  x   input matrix
+/// @brief  forward of fc layer
+/// @param[in]  self    layer
+/// @param[in]  x       input matrix
 ///
-static void fc_forward(layer_t* fc, const mat_t* x)
+static void fc_forward(layer_t* self, const mat_t* x)
 {
-    mat_mul(x, fc->w, fc->y);
-    mat_add(fc->y, fc->b, fc->y);
+    mat_mul(x, self->w, self->y);
+    mat_add(self->y, self->b, self->y);
 }
 
 ///
-/// @fn     fc
+/// @fn     fc_layer
 /// @brief  alloc fc layer
-/// @param[in]  x   input width 
-/// @param[in]  y   output width
+/// @param[in]  x   input size
+/// @param[in]  y   output size
 ///
-layer_t* fc(const int x, const int y)
+layer_t* fc_layer(const int x, const int y)
 {
-    layer_t* fc = layer_alloc();
-    if (fc == NULL) {
+    layer_t* self = layer_alloc();
+    if (self == NULL) {
         return NULL;
     }
 
-    fc->w = mat_alloc(x, y);
-    fc->b = mat_alloc(1, y);
-    fc->y = mat_alloc(1, y);
+    self->w = mat_alloc(x, y);
+    self->b = mat_alloc(1, y);
+    self->y = mat_alloc(1, y);
 
-    fc->forward = fc_forward;
+    self->forward = fc_forward;
 
-    return fc;
+    return self;
 }
 
 #endif

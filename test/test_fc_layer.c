@@ -17,7 +17,7 @@ void tearDown(void)
 
 void test_fc_alloc(void)
 {
-    layer_t* layer = fc(2, 3);
+    layer_t* layer = fc_layer(2, 3);
     
     TEST_ASSERT_NOT_NULL(layer);
     TEST_ASSERT_NOT_NULL(layer->w);
@@ -37,7 +37,7 @@ void test_fc_alloc(void)
 
 void test_fc_forward(void)
 {
-    layer_t* layer = fc(2, 3);
+    layer_t* layer = fc_layer(2, 3);
     mat_copy_array(layer->w, (float[]){
         0, 1, 2,
         3, 4, 5
