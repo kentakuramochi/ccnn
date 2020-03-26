@@ -51,9 +51,7 @@ void test_fc_forward(void)
 
     float answer[] = { 3, 6, 9 };
 
-    for (int i = 0; i < 3; i++) {
-        TEST_ASSERT_EQUAL(answer[i], layer->y->data[i]);
-    }
+    TEST_ASSERT_EQUAL_FLOAT_ARRAY(answer, layer->y->data, 3);
 
     layer_free(layer);
 }
