@@ -61,7 +61,6 @@ int main(void)
     UNITY_BEGIN();
 
     RUN_TEST(test_fc_alloc);
-
     RUN_TEST(test_fc_forward);
 
     return UNITY_END();

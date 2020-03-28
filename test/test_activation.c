@@ -29,7 +29,6 @@ int main(void)
     UNITY_BEGIN();
 
     RUN_TEST(test_sigmoid);
-    //RUN_TEST();
 
     return UNITY_END();
 }

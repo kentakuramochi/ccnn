@@ -54,7 +54,6 @@ int main(void)
     UNITY_BEGIN();
 
     RUN_TEST(test_sigmoid_alloc);
-
     RUN_TEST(test_sigmoid_forward);
 
     return UNITY_END();
