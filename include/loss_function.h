@@ -12,9 +12,10 @@
 
 ///
 /// @fn     loss_mse
-/// @brief  mean squared error
+/// @brief  mean squared error loss
 /// @param[in]  y   predicted matrix
 /// @param[in]  t   correct matrix
+/// @return     mean squared error loss
 ///
 static float loss_mse(const mat_t* y, const mat_t* t)
 {

@@ -26,6 +26,7 @@ static void sigmoid_forward(layer_t* self, const mat_t* x)
 /// @fn     sigmoid_layer
 /// @brief  alloc sigmoid layer
 /// @param[in]  x   input size 
+/// @return     pointer to new layer
 ///
 layer_t* sigmoid_layer(const int x)
 {

@@ -25,6 +25,7 @@ static void fc_forward(layer_t* self, const mat_t* x)
 /// @brief  alloc fc layer
 /// @param[in]  x   input size
 /// @param[in]  y   output size
+/// @return     pointer to new layer
 ///
 layer_t* fc_layer(const int x, const int y)
 {
