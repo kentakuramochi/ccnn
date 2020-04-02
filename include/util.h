@@ -39,4 +39,14 @@ uint32_t xorshift_128(void)
     return xorsft_w;
 }
 
+///
+/// @fn     uniform 
+/// @brief  generate uniform
+/// @return pseudo random number [0, 1)
+///
+float uniform(void)
+{
+    return  xorshift_128() / UINT32_MAX;
+}
+
 #endif
