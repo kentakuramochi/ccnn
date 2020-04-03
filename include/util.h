@@ -40,13 +40,13 @@ uint32_t xorshift_128(void)
 }
 
 ///
-/// @fn     uniform 
-/// @brief  generate uniform
-/// @return pseudo random number [0, 1)
+/// @fn     rand_uniform 
+/// @brief  generate uniform random numbers
+/// @return uniform random numbers [0, 1)
 ///
-float uniform(void)
+float rand_uniform(void)
 {
-    return  xorshift_128() / UINT32_MAX;
+    return  (xorshift_128() + 0.5f) / (UINT32_MAX + 1.0f);
 }
 
 #endif
