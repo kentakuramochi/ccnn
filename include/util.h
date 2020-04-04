@@ -6,7 +6,10 @@
 #ifndef UTIL_H
 #define UTIL_H
 
+#include <math.h>
 #include <stdint.h>
+
+#define MATH_PI 3.14159265358979
 
 static uint32_t xorsft_x = 123456789;
 static uint32_t xorsft_y = 362436069;
@@ -16,6 +19,7 @@ static uint32_t xorsft_w = 88675123;
 ///
 /// @fn     random_seed
 /// @brief  set seed of random number
+/// @param[in]  seed    seed of random number
 ///
 void random_seed(uint32_t seed)
 {
@@ -47,6 +51,18 @@ uint32_t xorshift_128(void)
 float rand_uniform(void)
 {
     return  (xorshift_128() + 0.5f) / (UINT32_MAX + 1.0f);
+}
+
+///
+/// @fn     rand_normal
+/// @brief  generate normal random numbers
+/// @param[in]  mean    mean
+/// @param[in]  std     standard deviation
+/// @return normal random numbers
+///
+float rand_normal(float mean, float std)
+{
+    return mean + std * sqrtf(-2.0f * logf(rand_uniform()) * sinf(2.0f * MATH_PI * rand_uniform()));
 }
 
 #endif
