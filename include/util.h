@@ -9,6 +9,10 @@
 #include <math.h>
 #include <stdint.h>
 
+///
+/// @def    MATH_PI
+/// @brief  static pi value
+///
 #define MATH_PI 3.14159265358979
 
 static uint32_t xorsft_x = 123456789;
