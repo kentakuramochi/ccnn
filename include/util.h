@@ -63,10 +63,11 @@ float rand_uniform(void)
 /// @param[in]  mean    mean
 /// @param[in]  std     standard deviation
 /// @return normal random numbers
+/// @note   use a part of box-muller algorithm
 ///
 float rand_normal(float mean, float std)
 {
-    return mean + std * sqrtf(-2.0f * logf(rand_uniform()) * sinf(2.0f * MATH_PI * rand_uniform()));
+    return mean + std * sqrtf(-2.0f * logf(rand_uniform())) * sinf(2.0f * MATH_PI * rand_uniform());
 }
 
 #endif
