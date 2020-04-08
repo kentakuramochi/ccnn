@@ -9,6 +9,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "util.h"
+
 ///
 /// @struct mat_t
 /// @brief  2-d matrix data
@@ -134,6 +136,28 @@ mat_t* mat_clone(const mat_t* src)
         mat_free(mat);
         return NULL;
     }
+
+    return mat;
+}
+
+///
+/// @fn     mat_rand_normal
+/// @brief  set matrix data with normal random number
+/// @param[out] mat     matrix
+/// @param[in]  mean    mean
+/// @param[in]  std     standard deviation
+/// @return     pointer to matrix
+///
+mat_t* mat_rand_normal(mat_t* mat, const float mean, const float std)
+{
+    if ((mat == NULL) || (std < 0)) {
+        return NULL;
+    }
+
+    for (int i = 0; i < (mat->row * mat->col); i++) {
+        mat->data[i] = rand_normal(mean, std);
+    }
+
 
     return mat;
 }
