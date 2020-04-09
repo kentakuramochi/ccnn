@@ -273,6 +273,24 @@ void test_mat_trans(void)
     mat_free(ta);
 }
 
+void test_mat_rand_normal(void)
+{
+    mat_t* a = mat_alloc(2, 3);
+    mat_t* b = mat_alloc(2, 3);
+
+    random_seed(0);
+
+    mat_rand_normal(a, 0, 1);
+    mat_rand_normal(b, 0, 1);
+
+    for (int i = 0; i < (a->row * a->col); i++) {
+        TEST_ASSERT_NOT_EQUAL(a->data[i], b->data[i]);
+    }
+
+    mat_free(a);
+    mat_free(b);
+}
+
 int main(void)
 {
     UNITY_BEGIN();
@@ -288,6 +306,7 @@ int main(void)
     RUN_TEST(test_mat_mul_scalar);
     RUN_TEST(test_mat_mul);
     RUN_TEST(test_mat_trans);
+    RUN_TEST(test_mat_rand_normal);
 
     return UNITY_END();
 }
