@@ -32,7 +32,7 @@ void random_seed(uint32_t seed)
 
 ///
 /// @fn     xorshift_128
-/// @brief  generate random number by xorshift algorithm
+/// @brief  generate random number by xorshift algorithm (128 bit)
 /// @return pseudo random number
 ///
 uint32_t xorshift_128(void)
