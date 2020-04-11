@@ -278,7 +278,7 @@ void test_mat_rand_normal(void)
     mat_t* a = mat_alloc(2, 3);
     mat_t* b = mat_alloc(2, 3);
 
-    random_seed(0);
+    rand_seed(0);
 
     mat_rand_normal(a, 0, 1);
     mat_rand_normal(b, 0, 1);

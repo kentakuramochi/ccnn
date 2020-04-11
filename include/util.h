@@ -21,21 +21,21 @@ static uint32_t xorsft_z = 521288629;
 static uint32_t xorsft_w = 88675123;
 
 ///
-/// @fn     random_seed
+/// @fn     rand_seed
 /// @brief  set seed of random number
 /// @param[in]  seed    seed of random number
 ///
-void random_seed(uint32_t seed)
+void rand_seed(uint32_t seed)
 {
     xorsft_w = seed;
 }
 
 ///
-/// @fn     xorshift_128
+/// @fn     rand_uint
 /// @brief  generate random number by xorshift algorithm (128 bit)
 /// @return pseudo random number
 ///
-uint32_t xorshift_128(void)
+uint32_t rand_uint(void)
 {
     uint32_t t = xorsft_x ^ (xorsft_x << 11);
 
@@ -54,7 +54,7 @@ uint32_t xorshift_128(void)
 ///
 float rand_uniform(void)
 {
-    return  (xorshift_128() + 0.5f) / (UINT32_MAX + 1.0f);
+    return  (rand_uint() + 0.5f) / (UINT32_MAX + 1.0f);
 }
 
 ///
