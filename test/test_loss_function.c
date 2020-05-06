@@ -29,11 +29,26 @@ void test_mse(void)
     mat_free(t);
 }
 
+void test_cross_entropy(void)
+{
+    mat_t* y = mat_alloc(1, 3);
+    mat_t* t = mat_alloc(1, 3);
+
+    mat_copy_array(y, (float[]){ 0.5, 0.2, 0.3 });
+    mat_copy_array(t, (float[]){ 0, 1, 0 });
+
+    TEST_ASSERT_EQUAL_FLOAT(0.7, loss_cross_entropy(y, t));
+
+    mat_free(y);
+    mat_free(t);
+}
+
 int main(void)
 {
     UNITY_BEGIN();
 
     RUN_TEST(test_mse);
+    RUN_TEST(test_cross_entropy);
 
     return UNITY_END();
 }
