@@ -34,10 +34,10 @@ void test_cross_entropy(void)
     mat_t* y = mat_alloc(1, 3);
     mat_t* t = mat_alloc(1, 3);
 
-    mat_copy_array(y, (float[]){ 0.5, 0.2, 0.3 });
-    mat_copy_array(t, (float[]){ 0, 1, 0 });
+    mat_copy_array(y, (float[]){ 0.3, 0.3, 0.4 });
+    mat_copy_array(t, (float[]){ 0, 0, 1 });
 
-    TEST_ASSERT_EQUAL_FLOAT(0.7, loss_cross_entropy(y, t));
+    TEST_ASSERT_EQUAL_FLOAT(0.91629048, loss_cross_entropy(y, t));
 
     mat_free(y);
     mat_free(t);
