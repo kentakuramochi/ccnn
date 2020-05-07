@@ -42,7 +42,7 @@ static float loss_cross_entropy(const mat_t* y, const mat_t* t)
     float   diff = 0;
 
     for (int i = 0; i < size; i++) {
-        diff += (t->data[i] * logf(y->data[i]));
+        diff += (t->data[i] * logf(y->data[i] + 1e-7));
     }
 
     return -1.0 * diff;
