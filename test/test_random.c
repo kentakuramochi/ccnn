@@ -1,11 +1,11 @@
 ///
-/// @file   test_util.c
-/// @brief  test of utility functions
+/// @file   test_random.c
+/// @brief  test of random numbers
 ///
 
 #include "unity.h"
 
-#include "util.h"
+#include "random.h"
 
 void setUp(void)
 {

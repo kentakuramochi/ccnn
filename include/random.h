@@ -1,10 +1,10 @@
 ///
-/// @file   util.h
-/// @brief  utility functions 
+/// @file   random.h
+/// @brief  functions for random numbers
 ///
 
-#ifndef UTIL_H
-#define UTIL_H
+#ifndef RANDOM_H
+#define RANDOM_H
 
 #include <math.h>
 #include <stdint.h>
