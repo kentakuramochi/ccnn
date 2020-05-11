@@ -36,6 +36,16 @@ static void sigmoid_forward(layer_t* self, const mat_t* x)
 }
 
 ///
+/// @fn     sigmoid_backward
+/// @brief  backward of sigmoid layer
+/// @param[in]  self    layer
+/// @param[in]  x       input matrix
+///
+static void sigmoid_backward(layer_t* self, const mat_t* x)
+{
+}
+
+///
 /// @fn     sigmoid_layer
 /// @brief  alloc sigmoid layer
 /// @param[in]  x   input size 
@@ -51,6 +61,7 @@ layer_t* sigmoid_layer(const int x)
     self->y = mat_alloc(1, x);
 
     self->forward = sigmoid_forward;
+    self->backward = sigmoid_backward;
 
     return self;
 }

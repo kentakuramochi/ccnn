@@ -21,6 +21,16 @@ static void fc_forward(layer_t* self, const mat_t* x)
 }
 
 ///
+/// @fn     fc_backward
+/// @brief  backward of fc layer
+/// @param[in]  self    layer
+/// @param[in]  x       input matrix
+///
+static void fc_backward(layer_t* self, const mat_t* x)
+{
+}
+
+///
 /// @fn     fc_layer
 /// @brief  alloc fc layer
 /// @param[in]  x   input size
@@ -39,6 +49,7 @@ layer_t* fc_layer(const int x, const int y)
     self->y = mat_alloc(1, y);
 
     self->forward = fc_forward;
+    self->backward = fc_backward;
 
     return self;
 }

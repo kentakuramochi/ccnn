@@ -36,6 +36,16 @@ static void relu_forward(layer_t* self, const mat_t* x)
 }
 
 ///
+/// @fn     relu_backward
+/// @brief  backward of relu layer
+/// @param[in]  self    layer
+/// @param[in]  x       input matrix
+///
+static void relu_backward(layer_t* self, const mat_t* x)
+{
+}
+
+///
 /// @fn     relu_layer
 /// @brief  alloc relu layer
 /// @param[in]  x   input size 
@@ -51,6 +61,7 @@ layer_t* relu_layer(const int x)
     self->y = mat_alloc(1, x);
 
     self->forward = relu_forward;
+    self->backward = relu_backward;
 
     return self;
 }
