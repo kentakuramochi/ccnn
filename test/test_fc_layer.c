@@ -21,14 +21,20 @@ void test_fc_alloc(void)
     
     TEST_ASSERT_NOT_NULL(layer);
     TEST_ASSERT_NOT_NULL(layer->w);
+    TEST_ASSERT_NOT_NULL(layer->dw);
     TEST_ASSERT_NOT_NULL(layer->b);
+    TEST_ASSERT_NOT_NULL(layer->db);
     TEST_ASSERT_NOT_NULL(layer->y);
     TEST_ASSERT_NOT_NULL(layer->forward);
 
     TEST_ASSERT_EQUAL(layer->w->row, 2);
     TEST_ASSERT_EQUAL(layer->w->col, 3);
+    TEST_ASSERT_EQUAL(layer->dw->row, 2);
+    TEST_ASSERT_EQUAL(layer->dw->col, 3);
     TEST_ASSERT_EQUAL(layer->b->row, 1);
     TEST_ASSERT_EQUAL(layer->b->col, 3);
+    TEST_ASSERT_EQUAL(layer->db->row, 1);
+    TEST_ASSERT_EQUAL(layer->db->col, 3);
     TEST_ASSERT_EQUAL(layer->y->row, 1);
     TEST_ASSERT_EQUAL(layer->y->col, 3);
 

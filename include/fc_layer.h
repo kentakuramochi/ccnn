@@ -44,12 +44,16 @@ layer_t* fc_layer(const int x, const int y)
         return NULL;
     }
 
-    self->w = mat_alloc(x, y);
-    self->b = mat_alloc(1, y);
+    self->w     = mat_alloc(x, y);
+    self->dw    = mat_alloc(x, y);
+
+    self->b     = mat_alloc(1, y);
+    self->db    = mat_alloc(1, y);
+
     self->y = mat_alloc(1, y);
 
-    self->forward = fc_forward;
-    self->backward = fc_backward;
+    self->forward   = fc_forward;
+    self->backward  = fc_backward;
 
     return self;
 }

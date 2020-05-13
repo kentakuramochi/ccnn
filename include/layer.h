@@ -18,7 +18,9 @@ typedef struct layer_t {
     mat_t* x;   ///< input
     mat_t* y;   ///< output
     mat_t* w;   ///< weight
+    mat_t* dw;  ///< weight differential
     mat_t* b;   ///< bias
+    mat_t* db;  ///< bias differential
 
     struct layer_t* prev;   ///< pointer of prev layer
     struct layer_t* next;   ///< pointer of next layer
@@ -42,8 +44,11 @@ layer_t* layer_alloc(void)
     layer->x = NULL;
     layer->y = NULL;
 
-    layer->w = NULL;
-    layer->b = NULL;
+    layer->w    = NULL;
+    layer->dw   = NULL;
+
+    layer->b    = NULL;
+    layer->db   = NULL;
 
     layer->prev = NULL;
     layer->next = NULL;
@@ -69,7 +74,10 @@ void layer_free(layer_t* layer)
     mat_free(layer->y);
 
     mat_free(layer->w);
+    mat_free(layer->dw);
+
     mat_free(layer->b);
+    mat_free(layer->db);
 
     free(layer);
 }

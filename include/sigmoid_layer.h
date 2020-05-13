@@ -60,8 +60,8 @@ layer_t* sigmoid_layer(const int x)
 
     self->y = mat_alloc(1, x);
 
-    self->forward = sigmoid_forward;
-    self->backward = sigmoid_backward;
+    self->forward   = sigmoid_forward;
+    self->backward  = sigmoid_backward;
 
     return self;
 }

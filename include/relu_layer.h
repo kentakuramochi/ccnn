@@ -60,8 +60,8 @@ layer_t* relu_layer(const int x)
 
     self->y = mat_alloc(1, x);
 
-    self->forward = relu_forward;
-    self->backward = relu_backward;
+    self->forward   = relu_forward;
+    self->backward  = relu_backward;
 
     return self;
 }
