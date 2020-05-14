@@ -39,10 +39,13 @@ static void relu_forward(layer_t* self, const mat_t* x)
 /// @fn     relu_backward
 /// @brief  backward of relu layer
 /// @param[in]  self    layer
-/// @param[in]  x       input matrix
+/// @param[in]  dy      output differential 
 ///
-static void relu_backward(layer_t* self, const mat_t* x)
+static void relu_backward(layer_t* self, const mat_t* dy)
 {
+    for (int i = 0; i < (dy->row * dy->col); i++) {
+        self->dw->data[i] = (self->x->data[i] > 0) ? dy->data[i] : 0;
+    }
 }
 
 ///
