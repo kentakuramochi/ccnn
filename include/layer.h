@@ -16,6 +16,7 @@
 ///
 typedef struct layer_t {
     mat_t* x;   ///< input
+    mat_t* dx;  ///< input differential
     mat_t* y;   ///< output
     mat_t* w;   ///< weight
     mat_t* dw;  ///< weight differential
@@ -41,8 +42,10 @@ layer_t* layer_alloc(void)
         return NULL;
     }
 
-    layer->x = NULL;
-    layer->y = NULL;
+    layer->x    = NULL;
+    layer->dx   = NULL;
+
+    layer->y    = NULL;
 
     layer->w    = NULL;
     layer->dw   = NULL;
@@ -71,6 +74,8 @@ void layer_free(layer_t* layer)
     }
 
     mat_free(layer->x);
+    mat_free(layer->dx);
+
     mat_free(layer->y);
 
     mat_free(layer->w);

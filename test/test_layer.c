@@ -22,6 +22,7 @@ void test_layer_alloc(void)
     TEST_ASSERT_NOT_NULL(layer);
 
     TEST_ASSERT_NULL(layer->x);
+    TEST_ASSERT_NULL(layer->dx);
     TEST_ASSERT_NULL(layer->y);
     TEST_ASSERT_NULL(layer->w);
     TEST_ASSERT_NULL(layer->dw);
