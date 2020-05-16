@@ -39,10 +39,13 @@ static void sigmoid_forward(layer_t* self, const mat_t* x)
 /// @fn     sigmoid_backward
 /// @brief  backward of sigmoid layer
 /// @param[in]  self    layer
-/// @param[in]  x       input matrix
+/// @param[in]  dy      output differential
 ///
-static void sigmoid_backward(layer_t* self, const mat_t* x)
+static void sigmoid_backward(layer_t* self, const mat_t* dy)
 {
+    for (int i = 0; i < (dy->row * dy->col); i++) {
+        self->dx->data[i] = dy->data[i] * self->y->data[i] * (1 - self->y->data[i]);
+    }
 }
 
 ///
@@ -57,6 +60,8 @@ layer_t* sigmoid_layer(const int x)
     if (self == NULL) {
         return NULL;
     }
+
+    self->dx = mat_alloc(1, x);
 
     self->y = mat_alloc(1, x);
 

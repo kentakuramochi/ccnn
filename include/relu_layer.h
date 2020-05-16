@@ -44,7 +44,7 @@ static void relu_forward(layer_t* self, const mat_t* x)
 static void relu_backward(layer_t* self, const mat_t* dy)
 {
     for (int i = 0; i < (dy->row * dy->col); i++) {
-        self->dw->data[i] = (self->x->data[i] > 0) ? dy->data[i] : 0;
+        self->dx->data[i] = (self->x->data[i] > 0) ? dy->data[i] : 0;
     }
 }
 
@@ -60,6 +60,8 @@ layer_t* relu_layer(const int x)
     if (self == NULL) {
         return NULL;
     }
+
+    self->dx = mat_alloc(1, x);
 
     self->y = mat_alloc(1, x);
 
